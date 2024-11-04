@@ -90,14 +90,15 @@ jobs:
     name: Containerization
     needs: [unit-testing, code-coverage]
     runs-on: ubuntu-latest
+    env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_IMG: ${{ secrets.DOCKER_IMG }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
                   
       - name: Docker Login
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
           echo "Logging in to Docker..."
           docker login --username "${DOCKER_USERNAME}" --password "${DOCKER_PASSWORD}"
@@ -105,4 +106,10 @@ jobs:
       - name: Check Docker version
         run: docker --version
 
+      - name: Pulling the image
+        run: docker pull "${DOCKER_USERNAME}"/${DOCKER_IMG}":latest
+
+      - name: Check the list of images
+        run: docker images
+        
         
