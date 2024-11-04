@@ -57,29 +57,35 @@ jobs:
           tar -xzvf nginx-1.25.2.tar.gz
           cd nginx-1.25.2
   
+          - name: Download NGINX Source
+          run: |
+            wget http://nginx.org/download/nginx-1.25.2.tar.gz
+            tar -xzvf nginx-1.25.2.tar.gz
+    
       - name: Build NGINX with Coverage
         run: |
-          ./configure --with-debug --with-cc-opt="-O0 -fprofile-arcs -ftest-coverage" --with-ld-opt="-lgcov"
-          make
-          make install
-  
+            cd nginx-1.25.2
+            ./configure --with-debug --with-cc-opt="-O0 -fprofile-arcs -ftest-coverage" --with-ld-opt="-lgcov"
+            make
+            sudo make install
+    
       - name: Run Tests
         run: |
-          # Start nginx
-          sudo /usr/local/nginx/sbin/nginx
-          # Example test commands, replace these with your actual tests
-          curl http://localhost:80
-          # Stop nginx after tests
-          sudo /usr/local/nginx/sbin/nginx -s stop
-  
+            # Start nginx
+            sudo /usr/local/nginx/sbin/nginx
+            # Example test commands, replace these with your actual tests
+            curl http://localhost:80
+            # Stop nginx after tests
+            sudo /usr/local/nginx/sbin/nginx -s stop
+    
       - name: Collect Code Coverage
         run: |
-          lcov --capture --directory . --output-file coverage.info
-          lcov --remove coverage.info '/usr/*' --output-file coverage.info # Optional: remove system files
-          lcov --list coverage.info
-  
+            lcov --capture --directory . --output-file coverage.info
+            lcov --remove coverage.info '/usr/*' --output-file coverage.info # Optional: remove system files
+            lcov --list coverage.info
+    
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v3
         with:
-          name: coverage-report
-          path: coverage.info
+            name: coverage-report
+            path: coverage.info
