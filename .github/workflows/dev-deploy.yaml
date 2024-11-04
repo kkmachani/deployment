@@ -107,7 +107,7 @@ jobs:
         run: docker --version
 
       - name: Pulling the image
-        run: docker pull "${DOCKER_USERNAME}"/${DOCKER_IMG}":latest
+        run: docker pull "${DOCKER_USERNAME}/${DOCKER_IMG}:latest"
 
       - name: Check the list of images
         run: docker images
