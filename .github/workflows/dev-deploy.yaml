@@ -109,7 +109,7 @@ jobs:
       - name: Pulling the image
         run: |
           echo "Pulling Docker image: ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"
-          docker pull "${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"
+          docker pull "${DOCKER_USERNAME}"/"${DOCKER_IMAGE}":latest
         
 
       - name: Check the list of images
