@@ -106,10 +106,10 @@ jobs:
       - name: Check Docker version
         run: docker --version
 
-      - name: Pulling the image
+      - name: Building the image
         run: |
-          echo "Pulling Docker image: ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"
-          docker pull "${DOCKER_USERNAME}"/"${DOCKER_IMAGE}":latest
+          docker pull $DOCKER_USERNAME/$DOCKER_IMG:latest
+          
         
 
       - name: Check the list of images
