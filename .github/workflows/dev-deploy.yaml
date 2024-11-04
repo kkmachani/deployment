@@ -96,8 +96,13 @@ jobs:
                   
       - name: Docker Login
         env:
-          DOCKER_USERNAME: ${{ secrets.DEV_DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DEV_DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-          echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+          echo "Logging in to Docker..."
+          echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin || { echo "Docker login failed"; exit 1; }
+     
+      - name: Check Docker version
+        run: docker --version
+
         
