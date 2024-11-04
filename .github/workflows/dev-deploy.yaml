@@ -85,3 +85,19 @@ jobs:
         with:
             name: coverage-report
             path: coverage.info
+     
+  Docker:
+    name: Containerization
+    needs: [unit-testing, code-coverage]
+    permissions:
+       packages: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+                  
+      - name: Docker Login
+        uses: docker/login-action@v3
+        with:
+            username: ${{ vars.DOCKER_USERNAME}}
+            password: ${{ secrets.DOCKER_PASSWORD}}
