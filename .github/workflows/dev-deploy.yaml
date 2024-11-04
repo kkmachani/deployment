@@ -93,7 +93,7 @@ jobs:
     env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        DOCKER_IMG: ${{ secrets.DOCKER_IMG }}
+        DOCKER_IMG: ${{ secrets.DOCKER_IMG }}:latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -107,7 +107,10 @@ jobs:
         run: docker --version
 
       - name: Pulling the image
-        run: docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_PASSWORD }}:latest
+        run: |
+          echo "Pulling Docker image: ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"
+          docker pull "${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest"
+        
 
       - name: Check the list of images
         run: docker images
