@@ -1,0 +1,81 @@
+name: Continuous Deployment
+
+on:
+  workflow_dispatch:
+  push:
+     branches:
+         - main
+         - 'feature/*'
+jobs: 
+    unit-testing:
+        name: Unit-Testing
+        strategy:
+            matrix:
+                operating_system: [ubuntu-latest]
+        runs-on: ${{matrix.operating_system}} 
+        environment:
+          name: Dev
+        steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        
+        - name: Install Nginx and Dependencies
+          run: |
+            sudo apt-get update
+            sudo apt-get install -y nginx
+
+        - name: Start Nginx
+          run: |
+            sudo systemctl start nginx
+            sudo systemctl enable nginx  # Optional: to enable on boot
+
+        - name: Check Nginx Status
+          run: |
+            sudo systemctl status nginx
+
+        - name: Display Nginx Version
+          run: |
+            nginx -v
+
+    code-coverage:
+        name: code coverage
+        needs: [unit-testing]
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        
+        - name: Install dependencies
+          run: |
+            sudo apt-get update
+            sudo apt-get install -y build-essential libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl-dev lcov
+  
+        - name: Build NGINX with Coverage
+          run: |
+            ./configure --with-debug --with-cc-opt="-O0 -fprofile-arcs -ftest-coverage" --with-ld-opt="-lgcov"
+            make
+            make install
+  
+        - name: Run Tests
+          run: |
+            # Start nginx
+            sudo /usr/local/nginx/sbin/nginx
+            # Run your specific test commands here
+            # Example: curl requests to your NGINX instance to simulate traffic
+            # Once done, stop nginx
+            sudo /usr/local/nginx/sbin/nginx -s stop
+  
+        - name: Collect Code Coverage
+          run: |
+            lcov --capture --directory . --output-file coverage.info
+            lcov --remove coverage.info '/usr/*' --output-file coverage.info # optional: remove system files
+            lcov --list coverage.info
+  
+        - name: Upload Coverage Report
+          uses: actions/upload-artifact@v2
+          with:
+            name: coverage-report
+            path: coverage.info
+    
+        
+        
