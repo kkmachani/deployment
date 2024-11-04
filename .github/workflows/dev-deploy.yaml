@@ -51,14 +51,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y nginx lcov
      
+  
       - name: Download NGINX Source
         run: |
-          wget http://nginx.org/download/nginx-1.25.2.tar.gz
-          tar -xzvf nginx-1.25.2.tar.gz
-          cd nginx-1.25.2
-  
-          - name: Download NGINX Source
-          run: |
             wget http://nginx.org/download/nginx-1.25.2.tar.gz
             tar -xzvf nginx-1.25.2.tar.gz
             cd nginx-1.25.2
