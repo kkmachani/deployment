@@ -107,8 +107,8 @@ jobs:
         run: docker --version
 
       - name: Debug the Environment variable
-        run: |
-          echo Docker Image: "${DOCKER_IMG}"
+        run: | 
+           echo "DOCKER_IMG: $DOCKER_IMG"
 
       # - name: Building the image
       #   run: |
