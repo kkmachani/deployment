@@ -106,10 +106,17 @@ jobs:
         run: docker --version
 
 
+      # - name: Building the image
+      #   run: |
+      #     echo "Building Docker image: ${DOCKER_IMG}"
+      #     docker build -t ${{ vars.DOCKER_USERNAME }}/my-deploy:latest .
       - name: Building the image
-        run: |
-          echo "Building Docker image: ${DOCKER_IMG}"
-          docker build -t ${{ vars.DOCKER_USERNAME }}/my-deploy:latest .
+        uses: docker/build-push-action@v4
+        with:
+         context: .
+         push: false
+         tags: ${{ vars.DOCKER_USERNAME }}/my-deploy
+
           
         
       - name: Check the list of images
