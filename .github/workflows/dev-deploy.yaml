@@ -156,3 +156,7 @@ jobs:
 
            - name: Start Minikube with Docker driver
              run:  minikube start --driver=docker
+            
+           - name: Check Minikube Version
+             run:  minikube --version
+            
