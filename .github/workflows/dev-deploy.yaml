@@ -108,7 +108,7 @@ jobs:
 
       - name: Building the image
         run: |
-          docker buildx build "${DOCKER_IMG}" .
+          docker build -it "${DOCKER_IMG}" .
           
         
       - name: Check the list of images
