@@ -166,12 +166,15 @@ jobs:
         
            - name: Minikube Context view
              run: kubectl config use-context minikube 
-           
-           - name: Set the minikube Config file
-             uses: azure/k8s-set-context@v4
-             with:
-              method: kubeconfig
-              kubeconfig: ${{ secrets.KUBE_CONFIG}}
+
+           - name: view config
+             run: kubectl config view --minify
+
+          #  - name: Set the minikube Config file
+          #    uses: azure/k8s-set-context@v4
+          #    with:
+          #     method: kubeconfig
+          #     kubeconfig: ${{ secrets.KUBE_CONFIG }}
            
           #  - name: Fetch Minikube cluster details
           #    run: |
