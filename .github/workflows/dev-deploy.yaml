@@ -97,13 +97,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
                   
-      - name: Docker Login
-        run: |
-          echo "Logging in to Docker..."
-          docker login --username "${DOCKER_USERNAME}" --password "${DOCKER_PASSWORD}"
-     
-      - name: Check Docker version
-        run: docker --version
+
+      - name: Dockerhub Login
+        uses: docker/login-action@v2.2.0
+        with:
+          username: ${{ vars.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
 
       # # - name: Building the image
@@ -119,9 +118,9 @@ jobs:
 
           
         
-      - name: Check the list of images
-        run: |
-          curl -s "https://hub.docker.com/v2/repositories/${{ env.DOCKER_USERNAME }}/?page_size=100"
+      # - name: Check the list of images
+      #   run: |
+      #     curl -s "https://hub.docker.com/v2/repositories/${{ env.DOCKER_USERNAME }}/?page_size=100"
 
         
         
