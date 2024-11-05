@@ -157,6 +157,19 @@ jobs:
            - name: Start Minikube with Docker driver
              run:  minikube start --driver=docker
             
-           - name: Check Minikube Version
-             run:  minikube --version
+           
+           - name: Set the minikube Config file
+             uses: azure/k8s-set-context@v4
+             with:
+              method: kubeconfig
+              kubeconfig: ${{ secrets.KUBE_CONFIG}}
+           
+           - name: Fetch Minikube cluster details
+             run: |
+                minikube addons enable ingress
+                minikube version --short
+                echo -------------------------
+                kubectl get nodes
+                kubectl get pods
+                kubectl get pods -n kube-system
             
