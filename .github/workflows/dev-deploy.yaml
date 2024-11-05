@@ -106,13 +106,17 @@ jobs:
       - name: Check Docker version
         run: docker --version
 
-      - name: Building the image
+      - name: Debug the Environment variable
         run: |
-          echo "Building Docker image: ${DOCKER_IMG}"
-          docker build -t "${DOCKER_IMG}" .
+          echo "Docker Image: $DOCKER_IMG"
+
+      # - name: Building the image
+      #   run: |
+      #     echo "Building Docker image: ${DOCKER_IMG}"
+      #     docker build -t "${DOCKER_IMG}" .
           
         
-      - name: Check the list of images
-        run: docker images
+      # - name: Check the list of images
+      #   run: docker images
         
         
