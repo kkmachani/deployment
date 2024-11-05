@@ -123,26 +123,12 @@ jobs:
           context: .
           push: true
           tags: ${{ vars.DOCKER_USERNAME }}/my-deploy:${{ github.sha }}
-
       
-
-
-      # # - name: Building the image
-      # #   run: |
-      # #     echo "Building Docker image: ${DOCKER_IMG}"
-      # #     docker build -t ${{ vars.DOCKER_USERNAME }}/my-deploy:latest .
-      # - name: Building the image
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #    context: .
-      #    push: false
-      #    tags: ${{ env.DOCKER_USERNAME }}/my-deploy:latest
-
-          
-        
-      # - name: Check the list of images
-      #   run: |
-      #     curl -s "https://hub.docker.com/v2/repositories/${{ env.DOCKER_USERNAME }}/?page_size=100"
-
-        
-        #
+      - name: Github Container Registry Push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ vars.DOCKER_USERNAME }}/my-deploy:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/my-deploy:${{ github.sha }}
