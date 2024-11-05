@@ -93,7 +93,6 @@ jobs:
     env:
         DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        DOCKER_IMG: ${{ vars.DOCKER_IMG }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -106,17 +105,14 @@ jobs:
       - name: Check Docker version
         run: docker --version
 
-      - name: Debug the Environment variable
-        run: | 
-           echo "DOCKER_IMG: ${{ vars.DOCKER_IMG }}"
 
-      # - name: Building the image
-      #   run: |
-      #     echo "Building Docker image: ${DOCKER_IMG}"
-      #     docker build -t "${DOCKER_IMG}" .
+      - name: Building the image
+        run: |
+          echo "Building Docker image: ${DOCKER_IMG}"
+          docker build -t "${DOCKER_USERNAME}/my-deploy:latest" .
           
         
-      # - name: Check the list of images
-      #   run: docker images
+      - name: Check the list of images
+        run: docker images
         
         
