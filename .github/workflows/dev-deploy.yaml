@@ -108,6 +108,7 @@ jobs:
 
       - name: Building the image
         run: |
+          echo "Building Docker image: ${DOCKER_IMG}"
           docker build -t "${DOCKER_IMG}" .
           
         
