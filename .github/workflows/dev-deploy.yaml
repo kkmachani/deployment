@@ -109,11 +109,20 @@ jobs:
           push: false
           tags: ${{ vars.DOCKER_USERNAME }}/my-deploy:${{ github.sha }}
       
+      
       - name: List the docker images
         run: |
           docker images
           # docker run --name my-deploy -d \
           # ${{ vars.DOCKER_USERNAME }}/my-deploy:${{ github.sha }}
+    
+      
+      - name: Docker push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ vars.DOCKER_USERNAME }}/solar-system:${{ github.sha }}
 
       
 
