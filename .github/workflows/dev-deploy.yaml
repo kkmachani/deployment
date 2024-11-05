@@ -106,10 +106,9 @@ jobs:
       - name: Check Docker version
         run: docker --version
 
-      - name: Pulling the image
+      - name: Building the image
         run: |
-          echo Pulling the Docker image: "${DOCKER_USERNAME}/${DOCKER_IMG}"
-          docker pull "${DOCKER_USERNAME}/${DOCKER_IMG}"
+          docker build -t "${DOCKER_IMG}"
           
         
       - name: Check the list of images
