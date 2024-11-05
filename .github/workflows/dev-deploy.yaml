@@ -107,13 +107,13 @@ jobs:
         with:
           context: .
           push: false
-          tags: ${{ vars.DOCKER_USERNAME }}/my-deploy .
+          tags: ${{ vars.DOCKER_USERNAME }}/my-deploy:${{ github.sha }}
       
       - name: List the docker images
         run: |
           docker images
           # docker run --name my-deploy -d \
-          # ${{ vars.DOCKER_USERNAME }}/my-deploy
+          # ${{ vars.DOCKER_USERNAME }}/my-deploy:${{ github.sha }}
 
       
 
