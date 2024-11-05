@@ -107,12 +107,13 @@ jobs:
         with:
           context: .
           push: false
-          tags: ${{ vars.DOCKER_USERNAME }}/my-deploy:latest .
+          tags: ${{ vars.DOCKER_USERNAME }}/my-deploy .
       
       - name: List the docker images
         run: |
-          docker run --name my-deploy -d \
-          ${{ vars.DOCKER_USERNAME }}/my-deploy:latest
+          docker images
+          # docker run --name my-deploy -d \
+          # ${{ vars.DOCKER_USERNAME }}/my-deploy
 
       
 
