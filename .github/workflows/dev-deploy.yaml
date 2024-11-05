@@ -91,9 +91,9 @@ jobs:
     needs: [unit-testing, code-coverage]
     runs-on: ubuntu-latest
     env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        DOCKER_IMG: ${{ secrets.DOCKER_IMG }}
+        DOCKER_IMG: ${{ vars.DOCKER_IMG }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
