@@ -108,7 +108,7 @@ jobs:
 
       - name: Debug the Environment variable
         run: | 
-           echo "DOCKER_IMG: $DOCKER_IMG"
+           echo "DOCKER_IMG: ${{ vars.DOCKER_IMG }}"
 
       # - name: Building the image
       #   run: |
