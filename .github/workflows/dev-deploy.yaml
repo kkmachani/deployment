@@ -165,20 +165,20 @@ jobs:
 
         
            - name: Minikube Context view
-             run: kubectl config view --minify     
+             run: kubectl config use-context minikube 
            
-           - name: Set the minikube Config file
-             uses: azure/k8s-set-context@v4
-             with:
-              method: kubeconfig
-              kubeconfig: ${{ secrets.KUBE_CONFIG}}
+          #  - name: Set the minikube Config file
+          #    uses: azure/k8s-set-context@v4
+          #    with:
+          #     method: kubeconfig
+          #     kubeconfig: ${{ secrets.KUBE_CONFIG}}
            
-           - name: Fetch Minikube cluster details
-             run: |
-                minikube addons enable ingress
-                minikube version --short
-                echo -------------------------
-                kubectl get nodes
-                kubectl get pods
-                kubectl get pods -n kube-system
+          #  - name: Fetch Minikube cluster details
+          #    run: |
+          #       minikube addons enable ingress
+          #       minikube version --short
+          #       echo -------------------------
+          #       kubectl get nodes
+          #       kubectl get pods
+          #       kubectl get pods -n kube-system
             
