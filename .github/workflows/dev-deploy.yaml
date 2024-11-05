@@ -101,9 +101,38 @@ jobs:
           username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD}}
 
+      
       - name: Building Docker Image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: false
-          tags: ${{ vars.DOCKER_USERNAME }}/solar-system:latest
+          tags: ${{ vars.DOCKER_USERNAME }}/my-deploy:latest .
+      
+      - name: List the docker images
+        run: |
+          docker run --name my-deploy -d \
+          ${{ vars.DOCKER_USERNAME }}/my-deploy:latest
+
+      
+
+
+      # # - name: Building the image
+      # #   run: |
+      # #     echo "Building Docker image: ${DOCKER_IMG}"
+      # #     docker build -t ${{ vars.DOCKER_USERNAME }}/my-deploy:latest .
+      # - name: Building the image
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #    context: .
+      #    push: false
+      #    tags: ${{ env.DOCKER_USERNAME }}/my-deploy:latest
+
+          
+        
+      # - name: Check the list of images
+      #   run: |
+      #     curl -s "https://hub.docker.com/v2/repositories/${{ env.DOCKER_USERNAME }}/?page_size=100"
+
+        
+        #
