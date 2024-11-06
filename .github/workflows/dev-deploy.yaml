@@ -148,27 +148,36 @@ jobs:
          steps:
            - name: checkout repo
              uses: actions/checkout@v4 
-          
-           - name: Install Minikube
-             run: |
-               curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-               sudo install minikube-linux-amd64 /usr/local/bin/minikube
+             with:
+               repository: medyagh/deployment
+           
+           - name: start minikube
+             id: minikube
+             uses: medyagh/setup-minikube@latest
 
-           - name: Start Minikube with Docker driver
-             run:  minikube start --driver=docker
+           - name: Try the cluster!
+             run: kubectl get pods
+          
+          #  - name: Install Minikube
+          #    run: |
+          #      curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+          #      sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+          #  - name: Start Minikube with Docker driver
+          #    run:  minikube start --driver=docker
 
            
-           - name: Install Kubectl CLI
-             uses: azure/setup-kubectl@v4
-             with:
-                version: 'v1.25.0' # default is latest version
+          #  - name: Install Kubectl CLI
+          #    uses: azure/setup-kubectl@v4
+          #    with:
+          #       version: 'v1.25.0' # default is latest version
 
         
-           - name: Minikube Context view
-             run: kubectl config use-context minikube 
+          #  - name: Minikube Context view
+          #    run: kubectl config use-context minikube 
 
-           - name: view config
-             run: kubectl config view --minify
+          #  - name: view config
+          #    run: kubectl config view --minify
 
           #  - name: Set the minikube Config file
           #    uses: azure/k8s-set-context@v4
