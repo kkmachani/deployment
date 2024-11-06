@@ -205,7 +205,7 @@ jobs:
            - name: Get NodePort of the service
              id: nodeport
              run: |
-                  NODEPORT=$(kubectl get svc  my-ingress-nginx-controller  -o jsonpath='{.spec.ports[0].nodePort}')
+                  NODEPORT=$(kubectl get svc  my-ingress-nginx-controller -n ingress-nginx  -o jsonpath='{.spec.ports[0].nodePort}')
                   echo "NODEPORT=$NodePort" >> $GITHUB_ENV
 
            - name: Expose app via Minikube IP and NodePort
