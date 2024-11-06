@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: my-deploy
-          image: ${{ vars.DOCKER_USERNAME }}/my-deploy:633d8803abf47c499538addf55671c96c071fc19
+          image: machanikrishnakumar/my-deploy:633d8803abf47c499538addf55671c96c071fc19
           ports:
             - containerPort: 80
