@@ -171,7 +171,7 @@ jobs:
               
 
            - name: Update Ingress Service to NodePort
-             run: kubectl apply -f ingress-service.yaml
+             run: kubectl apply -f ./ingress-service.yaml
           
            - name: Show the services
              run: kubectl get svc
