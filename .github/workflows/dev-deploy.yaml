@@ -171,8 +171,11 @@ jobs:
               
 
            - name: Update Ingress Service to NodePort
-             run: kubectl apply -f modified-ingress-service.yaml
+             run: kubectl apply -f ingress-service.yaml
           
+           - name: Show the services
+             run: kubectl get svc
+
           #  - name: Get Minikube IP and NodePort for Ingress
           #    run: |
           #      MINIKUBE_IP=$(minikube ip)
