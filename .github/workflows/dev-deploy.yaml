@@ -184,9 +184,18 @@ jobs:
 
            - name: check the results
              run: |
-               kubectl get pods --all-namespaces
-               kubectl get svc --all-namespaces
-               minikube ip
+              for i in {1..5}; do
+                kubectl get pods --all-namespaces
+                echo "Iteration #$i: Checking pods"
+                kubectl get pods --all-namespaces
+                echo "Iteration #$i: Checking pods"
+                kubectl get pods --all-namespaces
+                kubectl get svc --all-namespaces
+                
+                echo "Waiting for 30 seconds before next iteration..."
+                sleep 30  # 30-second gap between iterations
+              done
+              minikube ip
 
       
 
