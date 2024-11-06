@@ -161,7 +161,10 @@ jobs:
              run: kubectl get nodes
        
            - name: Verify All Pods
-             run: kubectl get pods -A
+             run: |
+               kubectl get pods -A
+               kubectl get pods -A -l app.kubernetes.io/name=ingress-nginx
+
           
           #  - name: Install Minikube
           #    run: |
