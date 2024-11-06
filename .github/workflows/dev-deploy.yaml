@@ -163,6 +163,10 @@ jobs:
            - name: Verify All Pods
              run: |
                kubectl get pods -A
+           
+           - name: Install Ingress Controller
+             run: |
+               kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
                kubectl get pods -A -l app.kubernetes.io/name=ingress-nginx
 
           
