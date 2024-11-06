@@ -166,16 +166,30 @@ jobs:
            
            - name: Install Ingress Controller
              run: |
-
                kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
-               for i in {1..5}; do
-                 echo "Iteration #$i: Checking pods"
-                 kubectl get pods -A -l app.kubernetes.io/name=ingress-nginx
-                 echo "Iteration #$i: Checking services"
-                 kubectl get svc -A -l app.kubernetes.io/name=ingress-nginx
-                 echo "Waiting for 30 seconds before next iteration..."
-                 sleep 30  # 30-second gap between iterations
-               done
+               kubectl rollout status -n ingress-nginx deploy/ingress-nginx-controller 
+              
+
+           - name: Update Ingress Service to NodePort
+             run: kubectl apply -f modified-ingress-service.yaml
+          
+          #  - name: Get Minikube IP and NodePort for Ingress
+          #    run: |
+          #      MINIKUBE_IP=$(minikube ip)
+          #      NODE_PORT=$(kubectl get svc ingress-nginx-controller -n ingress-nginx -o jsonpath='{.spec.ports[?(@.port==80)].nodePort}')
+          #      echo "Ingress available at http://$MINIKUBE_IP:$NODE_PORT"
+
+           
+             
+
+          #      for i in {1..5}; do
+          #        echo "Iteration #$i: Checking pods"
+          #        kubectl get pods -A -l app.kubernetes.io/name=ingress-nginx
+          #        echo "Iteration #$i: Checking services"
+          #        kubectl get svc -A -l app.kubernetes.io/name=ingress-nginx
+          #        echo "Waiting for 30 seconds before next iteration..."
+          #        sleep 30  # 30-second gap between iterations
+          #      done
 
 
           
