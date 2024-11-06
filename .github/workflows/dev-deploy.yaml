@@ -10,10 +10,10 @@ on:
 jobs: 
   unit-testing:
     name: Unit-Testing
-    strategy:
-      matrix:
-        operating_system: [ubuntu-latest]
-    runs-on: ${{matrix.operating_system}} 
+    # strategy:
+    #   matrix:
+    #     operating_system: [ubuntu-latest]
+    runs-on: self-hosted
     environment:
       name: Dev
     steps:
@@ -41,7 +41,7 @@ jobs:
   code-coverage:
     name: Code Coverage
     needs: [unit-testing]
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -89,7 +89,7 @@ jobs:
   Docker:
     name: Containerization
     needs: [unit-testing, code-coverage]
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -142,35 +142,35 @@ jobs:
             ${{ vars.DOCKER_USERNAME }}/my-deploy:${{ github.sha }}
             ghcr.io/${{ github.repository_owner }}/my-deploy:${{ github.sha }}
   
-  Dev-Deploy:
-         needs: Docker
-         runs-on: ubuntu-latest
-         steps:
-           - name: checkout repo
-             uses: actions/checkout@v4 
+  # Dev-Deploy:
+  #        needs: Docker
+  #        runs-on: 
+  #        steps:
+  #          - name: checkout repo
+  #            uses: actions/checkout@v4 
            
-           - name: start minikube
-             id: minikube
-             uses: medyagh/setup-minikube@latest
+  #          - name: start minikube
+  #            id: minikube
+  #            uses: medyagh/setup-minikube@latest
 
-           - name: Try the cluster!
-             run: kubectl get pods
+  #          - name: Try the cluster!
+  #            run: kubectl get pods
 
 
-           - name: Verify Kubernetes Node
-             run: kubectl get nodes
+  #          - name: Verify Kubernetes Node
+  #            run: kubectl get nodes
        
-           - name: Verify All Pods
-             run: |
-               kubectl get pods -A
+  #          - name: Verify All Pods
+  #            run: |
+  #              kubectl get pods -A
            
-           - name: Install Ingress Controller
-             run: |
-               kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
-               sleep 30
-               kubectl get pods -A -l app.kubernetes.io/name=ingress-nginx
-               sleep 30
-               kubectl get svc -A -l app.kubernetes.io/name=ingress-nginx
+  #          - name: Install Ingress Controller
+  #            run: |
+  #              kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+  #              sleep 30
+  #              kubectl get pods -A -l app.kubernetes.io/name=ingress-nginx
+  #              sleep 30
+  #              kubectl get svc -A -l app.kubernetes.io/name=ingress-nginx
 
 
           
