@@ -197,6 +197,21 @@ jobs:
               done
               minikube ip
 
+           - name: Get Minikube IP
+             id: minikube_ip
+             run: |
+                echo "MINIKUBE_IP=$(minikube ip)" >> $GITHUB_ENV
+
+           - name: Get NodePort of the service
+             id: nodeport
+             run: |
+                  NODEPORT=$(kubectl get svc nginx-service -o jsonpath='{.spec.ports[0].nodePort}')
+                  echo "NODEPORT=$NODEPORT" >> $GITHUB_ENV
+
+           - name: Expose app via Minikube IP and NodePort
+             run: |
+               echo "App is exposed at: http://${{ env.MINIKUBE_IP }}:${{ env.NODEPORT }}"
+               curl http://${{ env.MINIKUBE_IP }}:${{ env.NODEPORT }}  # Optionally test the app
       
 
           
