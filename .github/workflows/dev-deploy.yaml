@@ -176,7 +176,17 @@ jobs:
            - name: Show the services
              run: | 
               kubectl get svc --all-namespaces
-              minikube ip
+           
+           - name: Apply the Deployment & ingress files
+             run: |
+               kubectl apply -f ./deployment.yaml
+               kubectl apply -f ./ingress.yaml
+
+           - name: check the results
+             run: |
+               kubectl get pods --all-namespaces
+               kubectl get svc --all-namespaces
+               minikube ip
 
       
 
