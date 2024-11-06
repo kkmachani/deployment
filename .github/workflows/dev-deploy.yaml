@@ -167,7 +167,11 @@ jobs:
            - name: Install Ingress Controller
              run: |
                kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+               sleep 15
                kubectl get pods -A -l app.kubernetes.io/name=ingress-nginx
+               sleep 10
+               kubectl get svc -A -l app.kubernetes.io/name=ingress-nginx
+
 
           
           #  - name: Install Minikube
