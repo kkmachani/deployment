@@ -174,8 +174,9 @@ jobs:
              run: kubectl apply -f ./ingress-service.yaml
           
            - name: Show the services
-             run: kubectl get svc
+             run: kubectl get svc --all-namespaces
 
+          
           #  - name: Get Minikube IP and NodePort for Ingress
           #    run: |
           #      MINIKUBE_IP=$(minikube ip)
