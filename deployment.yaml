@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: my-deploy
-          image: ghcr.io/${{ github.repository_owner }}/my-deploy:${{ github.sha }}
+          image: ${{ vars.DOCKER_USERNAME }}/my-deploy:633d8803abf47c499538addf55671c96c071fc19
           ports:
             - containerPort: 80
