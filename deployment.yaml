@@ -15,7 +15,7 @@ spec:
         app: nginx
     spec:
       containers:
-        - name: KK
+        - name: kk
           image: ${{ vars.DOCKER_USERNAME }}/ubuntu:latest
           ports:
             - containerPort: 80

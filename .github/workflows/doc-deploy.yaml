@@ -45,7 +45,7 @@ jobs:
         run: docker images
       
       - name: Run the image
-        run: docker run --name KK ${{ vars.DOCKER_USERNAME }}/ubuntu:latest
+        run: docker run --name kk ${{ vars.DOCKER_USERNAME }}/ubuntu:latest
 
       - name: List the containers
         run: docker ps -a
@@ -75,6 +75,8 @@ jobs:
          
       - name: Check the pods
         run: kubectl get pods -n default
+
+      
        
 
 
