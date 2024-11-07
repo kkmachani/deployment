@@ -51,7 +51,7 @@ jobs:
         run: docker ps -a
 
       - name: start the container
-        run: docker start KK
+        run: docker start kk
       
       - name: List the containers
         run: docker ps -a
