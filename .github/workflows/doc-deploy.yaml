@@ -117,6 +117,7 @@ jobs:
           echo "App is exposed at: http://${{ env.MINIKUBE_IP }}:${{ env.NODEPORT }}"
           curl http://${{ env.MINIKUBE_IP }}:30080  # Optionally test the app
     
+      
 
       
        

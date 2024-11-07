@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: kk
-          image: ${{ vars.DOCKER_USERNAME }}/ubuntu:latest
+          image: machanikrishnakumar/ubuntu:latest
           ports:
             - containerPort: 80
