@@ -15,7 +15,7 @@ spec:
         app: nginx
     spec:
       containers:
-        - name: kk
+        - name: krishna
           image: machanikrishnakumar/ubuntu:latest
           ports:
             - containerPort: 80

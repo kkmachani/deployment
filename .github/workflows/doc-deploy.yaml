@@ -45,13 +45,13 @@ jobs:
         run: docker images
       
       - name: Run the image
-        run: docker run --name kk ${{ vars.DOCKER_USERNAME }}/ubuntu:latest
+        run: docker run --name krishna ${{ vars.DOCKER_USERNAME }}/ubuntu:latest
 
       - name: List the containers
         run: docker ps -a
 
       - name: start the container
-        run: docker start kk
+        run: docker start krishna
       
       - name: List the containers
         run: docker ps -a
@@ -105,7 +105,7 @@ jobs:
       - name: Get NodePort of the service
         id: nodeport
         run: |
-          NODEPORT=$(kubectl get svc  my-ingress-nginx-controller -n ingress-nginx  -o jsonpath='{.spec.ports[0].nodePort}')
+          NODEPORT=$(kubectl get svc  kk-service -n ingress-nginx -o jsonpath='{.spec.ports[0].nodePort}')
           echo "NODEPORT=$NodePort" >> $GITHUB_ENV
 
       - name: Expose app via Minikube IP and NodePort
