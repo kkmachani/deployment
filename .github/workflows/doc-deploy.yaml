@@ -70,11 +70,49 @@ jobs:
       - name: Get the Cluster Info
         run: kubectl get pods -n default
 
+      - name: Install Ingress Controller
+        run: |
+          kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+          kubectl rollout status -n ingress-nginx deploy/ingress-nginx-controller 
+
+      - name: get tne services
+        run: kubectl get svc -n ingress-nginx
+
       - name: Apply the Deployment files
-        run: kubectl apply -f ./deployment.yaml
+        run: | 
+          kubectl apply -f ./deployment.yaml
+          kubectl apply -f ./ingress-service.yaml
          
       - name: Check the pods
-        run: kubectl get pods -n default
+        run: |
+           for i in {1..5}; do
+            kubectl get pods --all-namespaces
+            echo "Iteration #$i: Checking pods"
+            kubectl get pods --all-namespaces
+            echo "Iteration #$i: Checking pods"
+            kubectl get pods --all-namespaces
+            kubectl get svc --all-namespaces
+            echo "Waiting for 30 seconds before next iteration..."
+            sleep 30  # 30-second gap between iterations
+           done
+           minikube ip
+        
+           - name: Get Minikube IP
+           id: minikube_ip
+           run: |
+              echo "MINIKUBE_IP=$(minikube ip)" >> $GITHUB_ENV
+
+      - name: Get NodePort of the service
+        id: nodeport
+        run: |
+          NODEPORT=$(kubectl get svc  my-ingress-nginx-controller -n ingress-nginx  -o jsonpath='{.spec.ports[0].nodePort}')
+          echo "NODEPORT=$NodePort" >> $GITHUB_ENV
+
+      - name: Expose app via Minikube IP and NodePort
+        run: |
+          echo "App is exposed at: http://${{ env.MINIKUBE_IP }}:${{ env.NODEPORT }}"
+          curl http://${{ env.MINIKUBE_IP }}:30080  # Optionally test the app
+    
 
       
        
