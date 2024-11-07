@@ -49,6 +49,23 @@ jobs:
 
       - name: List the containers
         run: docker ps -a
+
+      - name: start the container
+        run: docker start KK
+
+  Deployment:
+    needs: Docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4 
+      
+      - name: start minikube
+        id: minikube
+        uses: medyagh/setup-minikube@latest
+
+      - name: Get the Cluster Info
+        run: kubectl get pods -n default
        
 
 
