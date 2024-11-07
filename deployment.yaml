@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-deployment
+  name: KK-deploy
   labels:
     app: nginx
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: nginx
@@ -15,7 +15,7 @@ spec:
         app: nginx
     spec:
       containers:
-        - name: my-deploy
-          image: machanikrishnakumar/my-deploy:633d8803abf47c499538addf55671c96c071fc19
+        - name: KK
+          image: ${{ vars.DOCKER_USERNAME }}/ubuntu:latest
           ports:
             - containerPort: 80

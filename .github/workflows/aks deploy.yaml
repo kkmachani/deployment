@@ -1,0 +1,31 @@
+name: Deploy application to AKS cluster
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - 'feature/*'
+
+jobs: 
+  unit-testing:
+    name: Unit-Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+       
+  Containerization:
+    name: Build & Push the image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          credentials:
+      
+      - name: Build & Push the Image
+        run: 
+
+
+
