@@ -40,5 +40,22 @@ jobs:
       
       - name: Tag the images
         run: docker tag ubuntu:latest ${{ vars.DOCKER_USERNAME }}/ubuntu:latest
+      
+  build-push:
+    name: Build & Push
+    needs: [Docker]
+    runs-on: ubuntu-latest
+    steps:
+      - name: list the images
+        run: docker images
+      
+      - name: Run the image
+        run: docker run -name KK ${{ vars.DOCKER_USERNAME }}
+
+      - name: List the containers
+        run: docker ps -a
+       
+
+
 
        
